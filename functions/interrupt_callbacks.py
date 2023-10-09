@@ -1,6 +1,6 @@
 import os
 from lib.epd import EPD
-from led_acquire import ledAcquireAll
+from functions.led_acquire import ledAcquireAll
 from functions.epd_draw_pic import epd_draw_image
 
 key1, key2, key3, key4 = 5,6,13,19

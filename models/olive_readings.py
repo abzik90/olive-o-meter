@@ -55,7 +55,8 @@ class OliveReadingsManager:
 
     def getReadings(self):
         return session.query(OliveReadings).all()
-    def getLastReadingId(self):
+    @staticmethod
+    def getLastReadingId():
         return session.query(OliveReadings).order_by(OliveReadings.id.desc()).first().id
 
     def updateReading(self, reading_id, sample_time, nm_525_ON, nm_525_OFF, nm_680_ON, nm_680_OFF,

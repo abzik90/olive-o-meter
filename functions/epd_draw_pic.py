@@ -20,7 +20,7 @@ def epdDrawLogo(epd, path):
     Limage.paste(bmp, (0,0))
 
 def epdDrawTable(epd, pd_avg, tree_pos_text, sampling_time_utc):
-    entryID = getLastReadingId()
+    entryID = OliveReadingsManager().getLastReadingId()
     epdDrawImage(epd, 'olivometer_logo_black.bmp')
     
     draw = ImageDraw.Draw(Limage)
