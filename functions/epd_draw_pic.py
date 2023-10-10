@@ -15,6 +15,7 @@ epd.fast_refresh = True
 def epdDrawImage(path):
     epd.init()
     Himage = Image.open(os.path.join(OLIVOMETER_RES, path))
+    Himage = Himage.resize((176, 264), Image.ANTIALIAS)
     epd.display_frame_full(Himage)
     epd.sleep()
 def epdDrawLogo(path):
@@ -24,6 +25,7 @@ def epdDrawLogo(path):
     Limage.paste(bmp, (0,0))
 
 def epdDrawTable(pd_avg, tree_pos_text, sampling_time_utc):
+    epd.init()
     entryID = OliveReadingsManager.getLastReadingId()
     epdDrawImage('olivometer_logo_black.bmp')
     
