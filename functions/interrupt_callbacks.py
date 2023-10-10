@@ -1,12 +1,11 @@
 import os
-from lib.epd import EPD
 from functions.led_acquire import ledAcquireAll
-from functions.epd_draw_pic import epd_draw_image
+from functions.epd_draw_pic import epdDrawImage
+
 
 key1, key2, key3, key4 = 5,6,13,19
 
 def interrupt(channel):
-    epd = EPD()
     print("interrupt", channel)
     
     if channel == key1:
@@ -20,7 +19,7 @@ def interrupt(channel):
         ledAcquireAll(epd, 3)
     elif channel == key4:
         print("SHUTDOWN\n")
-        epd_draw_image(epd, 'shutdown_screen.bmp')
+        epdDrawImage('shutdown_screen.bmp')
         os.system("sudo shutdown -h now")
     else:
         print("ERROR: Unknown key interrupt")

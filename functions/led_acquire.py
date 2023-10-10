@@ -3,7 +3,7 @@ from functions.epd_draw_pic import epdDrawTable
 from time import gmtime, strftime
 from models.olive_readings import OliveReadingsManager
 
-def ledAcquireAll(epd, tree_pos):
+def ledAcquireAll(tree_pos):
     led_freqs = [525, 680, 740, 980, 1450]
 
     positions = {1:"ALTO", 2:"CENTRO", 3:"BASSO"}
@@ -11,9 +11,7 @@ def ledAcquireAll(epd, tree_pos):
     pd_avg = [ledIlluminateAcquire(led_freq) for led_freq in led_freqs]
     sampling_time_utc = strftime("%Y-%m-%d %H:%M:%S", gmtime())
     
-    epd.init()
-    epdDrawTable(epd, pd_avg, tree_pos_text, sampling_time_utc)
-    epd.sleep()
+    epdDrawTable(pd_avg, tree_pos_text, sampling_time_utc)
     manager = OliveReadingsManager()
     manager.createReading(sample_time=sampling_time_utc, nm_525_ON=pd_avg[0][0], nm_525_OFF=pd_avg[0][1],
                             nm_680_ON=pd_avg[1][0], nm_680_OFF=pd_avg[1][1], nm_740_ON=pd_avg[2][0], nm_740_OFF=pd_avg[2][1],

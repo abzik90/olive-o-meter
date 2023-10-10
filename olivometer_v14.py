@@ -1,12 +1,8 @@
 import time
 import logging
-from lib.epd import EPD
 import RPi.GPIO as GPIO
 from functions.interrupt_callbacks import interrupt
-from functions.epd_draw_pic import epd_draw_image
-
-epd = EPD()
-epd.fast_refresh = True
+from functions.epd_draw_pic import epdDrawImage
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
@@ -29,7 +25,7 @@ logging.basicConfig(level=logging.DEBUG)
 
 
 def main():
-    epd_draw_image(epd, 'ready_screen.bmp')
+    epdDrawImage('ready_screen.bmp')
 
     try:
         while True:
