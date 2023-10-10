@@ -1,5 +1,5 @@
 from PIL import Image,ImageDraw,ImageFont
-from config.config import OLIVOMETER_RES
+from config.config import OLIVOMETER_RES, LOGO_PATH
 from models.olive_readings import OliveReadingsManager
 from lib.epd import EPD
 
@@ -9,26 +9,28 @@ import os
 font18 = ImageFont.truetype(os.path.join(OLIVOMETER_RES, 'DINCondensed-Bold.ttf'), 18)
 font35 = ImageFont.truetype(os.path.join(OLIVOMETER_RES, 'DINCondensed-Bold.ttf'), 35)
 
-epd = EPD()
-epd.fast_refresh = True
+#epd = EPD()
+#epd.fast_refresh = True
 
 def epdDrawImage(path):
+    epd = EPD()
     epd.init()
     Himage = Image.open(os.path.join(OLIVOMETER_RES, path))
     Himage = Himage.resize((176, 264), Image.ANTIALIAS)
     epd.display_frame_full(Himage)
     epd.sleep()
-def epdDrawLogo(path):
-    epd.init()
-    Limage = Image.new('1', (epd.width, epd.height), 255)  # 255: clear the frame
-    bmp = Image.open(os.path.join(OLIVOMETER_RES, path))
-    Limage.paste(bmp, (0,0))
-
 def epdDrawTable(pd_avg, tree_pos_text, sampling_time_utc):
+    epd = EPD()
     epd.init()
+    print("test 1")
+    Limage = Image.new('1', (epd.width, epd.height), 255)  # 255: clear the frame
+    bmp = Image.open(os.path.join(OLIVOMETER_RES, LOGO_PATH))
+    Limage.paste(bmp, (0,0))
+    	# entryID = 1
+    print("test 2")
     entryID = OliveReadingsManager.getLastReadingId()
-    epdDrawImage('olivometer_logo_black.bmp')
-    
+    # Limage = epdDrawImage('olivometer_logo_black.bmp')
+    print("Last row id:", entryID)
     draw = ImageDraw.Draw(Limage)
     draw.line((5, 60, 40, 60), fill = 0)
     draw.line((45, 60, 100, 60), fill = 0)
